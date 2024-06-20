@@ -2,7 +2,11 @@ import React from "react";
 import "./ButtonPanel.css";
 import Button from "../Buttons/Button";
 
-const ButtonPanel: React.FC = () => {
+interface ButtonPanelProps {
+  onButtonClick: (label:string) => void;
+}
+
+const ButtonPanel: React.FC<ButtonPanelProps> = ({onButtonClick}) => {
   const buttons = [
     "C",
     "+/-",
@@ -29,11 +33,7 @@ const ButtonPanel: React.FC = () => {
   return (
     <div className="ButtonPanel">
       {buttons.map((button) => (
-        <Button
-          key={button}
-          onClick={() => console.log(button)}
-          label={button}
-        />
+        <Button key={button} onClick={() => onButtonClick(button)} label={button}/>
       ))}
     </div>
   );
