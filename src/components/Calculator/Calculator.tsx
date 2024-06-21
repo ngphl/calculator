@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Calculator.css";
 import Screen from "../Screen/Screen";
 import ButtonPanel from "../ButtonPanel/ButtonPanel";
@@ -28,11 +28,21 @@ const Calculator: React.FC = () => {
       case "<-":
         backspace();
         break;
+      case "+/-":
+        toggleSign();
+        break;
       default:
         inputDigit(label);
     }
   };
 
+  // For debugging
+  useEffect(() => {
+    console.log("Prev value: " + prevValue);
+    console.log("Current value: " + currentValue);
+  }, [currentValue, prevValue, operator]);
+
+  //Clear Display
   const clearDisplay = () => {
     setCurrentValue("");
     setPrevValue("");
@@ -40,11 +50,21 @@ const Calculator: React.FC = () => {
     setDisplay("");
   };
 
+  //Toggle Sign
+  const toggleSign = () => {
+    setCurrentValue((prev) => {
+      const newValue = (parseFloat(prev) * -1).toString();
+      setDisplay(prevValue + operator + newValue);
+      return newValue;
+    });
+  };
+
+  //Calculate the result
   const calculateResult = () => {
     if (operator && prevValue !== null) {
       let result = calculate(
-        parseFloat(currentValue),
         parseFloat(prevValue),
+        parseFloat(currentValue),
         operator
       );
       setDisplay(result.toString());
@@ -54,6 +74,7 @@ const Calculator: React.FC = () => {
     }
   };
 
+  //Operator
   const inputOperator = (nextOperator: string) => {
     if (currentValue === "") return;
     if (prevValue !== "") {
@@ -66,6 +87,7 @@ const Calculator: React.FC = () => {
     setOperator(nextOperator);
   };
 
+  //Add Input
   const inputDigit = (digit: string) => {
     setCurrentValue((prev) => {
       const newValue = prev === "" ? digit : prev + digit;
