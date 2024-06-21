@@ -1,4 +1,24 @@
 .ButtonPanel {
   display: grid;
-  grid-template-columns: repeat(4,25%) ;
+  grid-template-columns: repeat(4, 25%);
+}
+
+button:nth-child(1),
+button:nth-child(2),
+button:nth-child(3) {
+  background-color: #ccc; /* Adjust this color as needed */
+}
+
+/* Styling every 4th button */
+button:nth-child(4n) {
+  background-color: #ebaa49; /* Yellow background for every 4th button */
+  color: #333; /* Text color */
+}
+
+button:nth-last-child(4) {
+  border-bottom-left-radius: 0.75rem;
+}
+
+button:last-child {
+  border-bottom-right-radius: 0.75rem;
 }

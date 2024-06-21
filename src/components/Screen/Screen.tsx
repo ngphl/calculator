@@ -2,13 +2,17 @@ import React from 'react'
 import "./Screen.css"
 
 interface DisplayProps {
-    value:string
+    formula:string;
+    result: number;
 }
 
-const Screen: React.FC<DisplayProps> = ({value}) => {
+const Screen: React.FC<DisplayProps> = ({ formula, result }) => {
   return (
-    <div className='screen'>{value}</div>
-  )
-}
+    <div className="screen">
+      <div className="formula">{formula}</div>
+      <div className="result">{result}</div>
+    </div>
+  );
+};
 
 export default Screen

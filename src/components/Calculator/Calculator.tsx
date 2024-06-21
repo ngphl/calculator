@@ -8,7 +8,8 @@ const Calculator: React.FC = () => {
   const [currentValue, setCurrentValue] = useState("");
   const [prevValue, setPrevValue] = useState("");
   const [operator, setOperator] = useState("");
-  const [display, setDisplay] = useState("");
+  const [formula, setFormula] = useState("");
+  const [result, setResult] = useState(0);
 
   const handleClick = (label: string) => {
     switch (label) {
@@ -42,21 +43,24 @@ const Calculator: React.FC = () => {
     console.log("Current value: " + currentValue);
   }, [currentValue, prevValue, operator]);
 
-  //Clear Display
+  //Clear formula
   const clearDisplay = () => {
     setCurrentValue("");
     setPrevValue("");
     setOperator("");
-    setDisplay("");
+    setFormula("");
+    setResult(0);
   };
 
   //Toggle Sign
   const toggleSign = () => {
-    setCurrentValue((prev) => {
-      const newValue = (parseFloat(prev) * -1).toString();
-      setDisplay(prevValue + operator + newValue);
-      return newValue;
-    });
+    if (currentValue !== "") {
+      setCurrentValue((prev) => {
+        const newValue = (parseFloat(prev) * -1).toString();
+        setFormula(prevValue + operator + newValue);
+        return newValue;
+      });
+    }
   };
 
   //Calculate the result
@@ -67,7 +71,7 @@ const Calculator: React.FC = () => {
         parseFloat(currentValue),
         operator
       );
-      setDisplay(result.toString());
+      setResult(result);
       setCurrentValue("");
       setPrevValue("");
       setOperator("");
@@ -82,7 +86,7 @@ const Calculator: React.FC = () => {
     } else {
       setPrevValue(currentValue);
       setCurrentValue("");
-      setDisplay(currentValue + nextOperator);
+      setFormula(currentValue + nextOperator);
     }
     setOperator(nextOperator);
   };
@@ -91,7 +95,7 @@ const Calculator: React.FC = () => {
   const inputDigit = (digit: string) => {
     setCurrentValue((prev) => {
       const newValue = prev === "" ? digit : prev + digit;
-      setDisplay((prevDisplay) => prevValue + operator + newValue);
+      setFormula(prevValue + operator + newValue);
       return newValue;
     });
   };
@@ -101,18 +105,18 @@ const Calculator: React.FC = () => {
       // Remove the last character from currentValue
       setCurrentValue((prev) => {
         const newValue = prev.slice(0, -1) || ""; // Remove last character or set to '' if empty
-        setDisplay(prevValue + operator + newValue);
+        setFormula(prevValue + operator + newValue);
         return newValue;
       });
     } else if (operator !== "") {
       // Remove the operator
       setOperator("");
-      setDisplay(prevValue);
+      setFormula(prevValue);
     } else if (prevValue !== "") {
       // Remove the last character from prevValue
       setPrevValue((prev) => {
         const newValue = prev.slice(0, -1) || ""; // Remove last character or set to '' if empty
-        setDisplay(newValue);
+        setFormula(newValue);
         return newValue;
       });
     }
@@ -120,7 +124,7 @@ const Calculator: React.FC = () => {
 
   return (
     <div className="frame">
-      <Screen value={display} />
+      <Screen formula={prevValue + operator + currentValue} result={result} />
       <ButtonPanel onButtonClick={handleClick} />
     </div>
   );
