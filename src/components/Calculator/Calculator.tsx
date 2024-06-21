@@ -25,6 +25,9 @@ const Calculator: React.FC = () => {
       case "=":
         calculateResult();
         break;
+      case "<-":
+        backspace();
+        break;
       default:
         inputDigit(label);
     }
@@ -38,7 +41,7 @@ const Calculator: React.FC = () => {
   };
 
   const calculateResult = () => {
-    if(operator && prevValue !== null) {
+    if (operator && prevValue !== null) {
       let result = calculate(
         parseFloat(currentValue),
         parseFloat(prevValue),
@@ -49,14 +52,13 @@ const Calculator: React.FC = () => {
       setPrevValue("");
       setOperator("");
     }
-  }
+  };
 
   const inputOperator = (nextOperator: string) => {
     if (currentValue === "") return;
     if (prevValue !== "") {
       calculateResult();
-    }
-    else {
+    } else {
       setPrevValue(currentValue);
       setCurrentValue("");
       setDisplay(currentValue + nextOperator);
@@ -67,11 +69,32 @@ const Calculator: React.FC = () => {
   const inputDigit = (digit: string) => {
     setCurrentValue((prev) => {
       const newValue = prev === "" ? digit : prev + digit;
-      setDisplay(prevValue + operator + newValue);
+      setDisplay((prevDisplay) => prevValue + operator + newValue);
       return newValue;
     });
   };
 
+  const backspace = () => {
+    if (currentValue !== "") {
+      // Remove the last character from currentValue
+      setCurrentValue((prev) => {
+        const newValue = prev.slice(0, -1) || ""; // Remove last character or set to '' if empty
+        setDisplay(prevValue + operator + newValue);
+        return newValue;
+      });
+    } else if (operator !== "") {
+      // Remove the operator
+      setOperator("");
+      setDisplay(prevValue);
+    } else if (prevValue !== "") {
+      // Remove the last character from prevValue
+      setPrevValue((prev) => {
+        const newValue = prev.slice(0, -1) || ""; // Remove last character or set to '' if empty
+        setDisplay(newValue);
+        return newValue;
+      });
+    }
+  };
 
   return (
     <div className="frame">
