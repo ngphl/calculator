@@ -1,6 +1,6 @@
-# Getting Started with Create React App
+# React Calculator - Pink
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This Calculator was bootstrapped with [Create React App](https://github.com/facebook/create-react-app). Logic was assisted by ChatGPT
 
 ## Available Scripts
 
