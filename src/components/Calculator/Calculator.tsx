@@ -52,6 +52,8 @@ const Calculator: React.FC = () => {
     setResult(0);
   };
 
+  
+
   //Toggle Sign
   const toggleSign = () => {
     if (currentValue !== "") {

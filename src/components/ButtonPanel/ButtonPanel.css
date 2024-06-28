@@ -11,7 +11,7 @@ button:nth-child(3) {
 
 /* Styling every 4th button */
 button:nth-child(4n) {
-  background-color: #ebaa49; /* Yellow background for every 4th button */
+  background-color: #ebb9e0; /* Yellow background for every 4th button */
   color: #333; /* Text color */
 }
 
@@ -20,5 +20,6 @@ button:nth-last-child(4) {
 }
 
 button:last-child {
+  background-color: #ca8fbd;
   border-bottom-right-radius: 0.75rem;
 }

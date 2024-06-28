@@ -8,6 +8,9 @@
     rgba(237, 198, 217, 1) 64%,
     rgba(219, 186, 197, 1) 100%
   );
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .title {
