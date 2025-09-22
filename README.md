@@ -1,6 +1,8 @@
 # React Calculator - Pink
 
-This Calculator was bootstrapped with [Create React App](https://github.com/facebook/create-react-app). Logic was assisted by ChatGPT
+# Note: This little calculator was made purely for practice purpose in my free time
+
+This Calculator was bootstrapped with [Create React App](https://github.com/facebook/create-react-app). 
 
 ## Getting Started
 
